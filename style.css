@@ -47,68 +47,51 @@ img {
   pointer-events: none;
 }
 
-/* ── 3D Letters ── */
+/* ── Splash Logo ── */
 
-.splash-letters {
-  display: flex;
-  gap: 20px;
-  perspective: 800px;
+.splash-logo {
+  width: 220px;
+  height: 220px;
+  filter: drop-shadow(0 0 30px rgba(255,255,255,0.15));
+  overflow: visible;
 }
 
-.letter {
-  font-family: "Georgia", "Times New Roman", serif;
-  font-size: 120px;
-  font-weight: 900;
-  color: #fff;
-  text-shadow:
-    1px 1px 0 #ccc,
-    2px 2px 0 #aaa,
-    3px 3px 0 #888,
-    4px 4px 0 #666,
-    5px 5px 0 #444,
-    6px 6px 20px rgba(0, 0, 0, 0.6);
-  transition: transform 0.15s ease;
-  transform: rotateX(5deg) rotateY(-3deg);
+.splash-logo path,
+.splash-logo line {
+  transition: opacity 0.3s ease;
 }
 
-.splash-letters:hover .letter {
-  transform: rotateX(8deg) rotateY(3deg);
+.splash-logo.exploding path,
+.splash-logo.exploding line {
+  opacity: 0;
 }
 
-.letter:nth-child(2) {
-  transform: rotateX(5deg) rotateY(3deg);
+.splash-logo {
+  transition: transform 2s cubic-bezier(0.4, 0, 1, 1),
+              opacity 2s linear;
 }
 
-.splash-letters:hover .letter:nth-child(2) {
-  transform: rotateX(8deg) rotateY(-3deg);
+.splash-logo.explode-out {
+  transform: scale(30);
+  opacity: 0;
 }
 
-/* fall animation */
-
-.letter.fall-left {
-  animation: fallLeft 0.7s cubic-bezier(0.55, 0, 1, 0.45) forwards;
-}
-
-.letter.fall-right {
-  animation: fallRight 0.7s cubic-bezier(0.55, 0, 1, 0.45) forwards;
-}
-
-@keyframes fallLeft {
-  0%   { transform: rotateX(5deg) rotateY(-3deg) translateY(0); opacity: 1; }
-  30%  { transform: rotateX(-10deg) rotateY(20deg) translateY(-40px); opacity: 1; }
-  100% { transform: rotateX(90deg) rotateY(40deg) translateY(600px); opacity: 0; }
-}
-
-@keyframes fallRight {
-  0%   { transform: rotateX(5deg) rotateY(3deg) translateY(0); opacity: 1; }
-  30%  { transform: rotateX(-10deg) rotateY(-20deg) translateY(-40px); opacity: 1; }
-  100% { transform: rotateX(90deg) rotateY(-40deg) translateY(600px); opacity: 0; }
+.splash-logo.explode-in {
+  transform: scale(0);
+  opacity: 0;
 }
 
 .hint {
   font-size: 13px;
   letter-spacing: 2px;
   color: #555;
+  transition: opacity 0.2s ease;
+  display: none;
+}
+
+.hint.hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* ── Header ── */
@@ -119,6 +102,8 @@ img {
   display: flex;
   align-items: center;
   gap: 16px;
+  text-decoration: none;
+  vertical-align:super;
 }
 
 .header-icon {
@@ -130,6 +115,10 @@ img {
   font-size: 50px;
   font-weight: 800;
   letter-spacing: 4px;
+  text-decoration: none;
+}
+.header a {
+  text-decoration: none;
 }
 
 /* ── Releases grid ── */
@@ -142,7 +131,7 @@ img {
 .releases {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 30px;
+  /* gap: 50px; */
   padding: 40px;
   max-width: 900px;
 }
@@ -157,7 +146,7 @@ img {
 }
 
 .card img {
-  aspect-ratio: 1;
+  aspect-ratio: 1.;
   object-fit: contain;
 }
 
@@ -201,8 +190,9 @@ img {
 /* ── Mobile ── */
 
 @media (max-width: 600px) {
-  .letter {
-    font-size: 80px;
+  .splash-logo {
+    width: 150px;
+    height: 150px;
   }
 
   .releases {
