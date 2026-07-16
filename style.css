@@ -1,0 +1,217 @@
+/* ========================================
+   secretlabel — main stylesheet
+   white on black. edit freely.
+   ======================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #000;
+  color: #fff;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: white;
+  /* text-decoration: none; */
+}
+
+img {
+  display: block;
+  width: 100%;
+}
+
+/* ── Splash ── */
+
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  cursor: pointer;
+  transition: opacity 0.5s ease;
+}
+
+.splash.done {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── 3D Letters ── */
+
+.splash-letters {
+  display: flex;
+  gap: 20px;
+  perspective: 800px;
+}
+
+.letter {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: 120px;
+  font-weight: 900;
+  color: #fff;
+  text-shadow:
+    1px 1px 0 #ccc,
+    2px 2px 0 #aaa,
+    3px 3px 0 #888,
+    4px 4px 0 #666,
+    5px 5px 0 #444,
+    6px 6px 20px rgba(0, 0, 0, 0.6);
+  transition: transform 0.15s ease;
+  transform: rotateX(5deg) rotateY(-3deg);
+}
+
+.splash-letters:hover .letter {
+  transform: rotateX(8deg) rotateY(3deg);
+}
+
+.letter:nth-child(2) {
+  transform: rotateX(5deg) rotateY(3deg);
+}
+
+.splash-letters:hover .letter:nth-child(2) {
+  transform: rotateX(8deg) rotateY(-3deg);
+}
+
+/* fall animation */
+
+.letter.fall-left {
+  animation: fallLeft 0.7s cubic-bezier(0.55, 0, 1, 0.45) forwards;
+}
+
+.letter.fall-right {
+  animation: fallRight 0.7s cubic-bezier(0.55, 0, 1, 0.45) forwards;
+}
+
+@keyframes fallLeft {
+  0%   { transform: rotateX(5deg) rotateY(-3deg) translateY(0); opacity: 1; }
+  30%  { transform: rotateX(-10deg) rotateY(20deg) translateY(-40px); opacity: 1; }
+  100% { transform: rotateX(90deg) rotateY(40deg) translateY(600px); opacity: 0; }
+}
+
+@keyframes fallRight {
+  0%   { transform: rotateX(5deg) rotateY(3deg) translateY(0); opacity: 1; }
+  30%  { transform: rotateX(-10deg) rotateY(-20deg) translateY(-40px); opacity: 1; }
+  100% { transform: rotateX(90deg) rotateY(-40deg) translateY(600px); opacity: 0; }
+}
+
+.hint {
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: #555;
+}
+
+/* ── Header ── */
+
+.header {
+  padding: 40px;
+  border-bottom: 1px solid #222;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-icon {
+  width: 75px;
+  /* height: 150px; */
+}
+
+.logo {
+  font-size: 50px;
+  font-weight: 800;
+  letter-spacing: 4px;
+}
+
+/* ── Releases grid ── */
+
+.releases a{
+  color:inherit;
+  text-decoration: none;
+}
+
+.releases {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  padding: 40px;
+  max-width: 900px;
+}
+
+.card {
+  display: block;
+  transition: opacity 0.2s;
+}
+
+.card:hover {
+  /* opacity: 0.8; */
+}
+
+.card img {
+  aspect-ratio: 1;
+  object-fit: contain;
+}
+
+.card-text {
+  padding: 16px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.card-catalog {
+  /* font-size: 12px; */
+  letter-spacing: 2px;
+  color: #666;
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: 300;
+}
+
+.card-artist {
+  /* font-size: 14px; */
+  color: #888;
+  /* letter-spacing: 1px; */
+}
+
+/* ── Info ── */
+
+.info {
+  padding: 40px;
+  border-top: 1px solid #222;
+}
+
+.info p {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.8;
+}
+
+/* ── Mobile ── */
+
+@media (max-width: 600px) {
+  .letter {
+    font-size: 80px;
+  }
+
+  .releases {
+    grid-template-columns: 1fr;
+    padding: 24px;
+  }
+
+  .header,
+  .info {
+    padding: 24px;
+  }
+}
