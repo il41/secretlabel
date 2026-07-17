@@ -368,6 +368,14 @@ img {
 }
 
 @media (max-width: 600px) {
+  #site {
+    position: static;
+  }
+
+  .splash {
+    z-index: 200;
+  }
+
   .splash-logo {
     width: 150px;
     height: 150px;
