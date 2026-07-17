@@ -58,7 +58,7 @@ img {
 
 .splash-logo path,
 .splash-logo line {
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s linear;
 }
 
 .splash-logo.exploding path,
@@ -94,6 +94,28 @@ img {
   pointer-events: none;
 }
 
+/* ── Site layout ── */
+
+#site {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.site .header,
+.site .info {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  flex-shrink: 0;
+}
+
+.site.visible .header,
+.site.visible .info {
+  opacity: 1;
+}
+
 /* ── Header ── */
 
 .header {
@@ -121,28 +143,47 @@ img {
   text-decoration: none;
 }
 
-/* ── Releases grid ── */
+/* ── Releases section ── */
+
+.releases-section {
+  background: #fff;
+  /* overflow: hidden; */
+  transition: clip-path 1s linear,
+              max-height 2s linear,
+              padding 1s linear,
+              opacity 0.6s linear;
+  clip-path: inset(0 0);
+  padding: 30px;
+  opacity: 1;
+  max-height: 2000px;
+  overflow: scroll;
+  
+}
+
+.releases-section.closed {
+  overflow: hidden;
+  padding-top: 0;
+  padding-bottom: 0;
+  opacity: 0;
+  clip-path: inset(50% 0);
+  max-height: 0;
+}
 
 .releases a{
-  color:inherit;
+  color: #000;
   text-decoration: none;
 }
 
 .releases {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  /* gap: 50px; */
-  padding: 40px;
+  gap: 30px;
   max-width: 900px;
+  margin: 0 auto;
 }
 
 .card {
   display: block;
-  transition: opacity 0.2s;
-}
-
-.card:hover {
-  /* opacity: 0.8; */
 }
 
 .card img {
@@ -158,7 +199,6 @@ img {
 }
 
 .card-catalog {
-  /* font-size: 12px; */
   letter-spacing: 2px;
   color: #666;
 }
@@ -166,12 +206,17 @@ img {
 .card-title {
   font-size: 20px;
   font-weight: 300;
+  color: #000;
 }
 
 .card-artist {
-  /* font-size: 14px; */
+  color: #666;
+}
+
+.card-date {
+  font-size: 13px;
   color: #888;
-  /* letter-spacing: 1px; */
+  margin-top: 2px;
 }
 
 /* ── Info ── */

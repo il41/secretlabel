@@ -141,8 +141,13 @@
 
     setTimeout(function () {
       splash.classList.add("done");
-      site.classList.remove("hidden");
+      site.classList.add("visible");
     }, 1200);
+
+    setTimeout(function () {
+      var releases = document.querySelector(".releases-section");
+      if (releases) releases.classList.remove("closed");
+    }, 2200);
   });
 
 })();
