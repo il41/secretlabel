@@ -152,9 +152,9 @@ img {
 .releases-section {
   background: #fff;
   /* overflow: hidden; */
-  transition: clip-path 1s linear,
-              max-height 2s linear,
-              padding 1s linear,
+  transition: clip-path 0s linear,
+              max-height 5s linear,
+              padding 0.2s linear,
               opacity 0.6s linear;
   clip-path: inset(0 0);
   padding: 30px;
@@ -389,5 +389,14 @@ img {
   .header,
   .info {
     padding: 24px;
+  }
+
+  .header{
+    margin-top:15vh;
+  }
+
+  .releases-section{
+    padding-left:0px;
+    padding-right:0px;
   }
 }
