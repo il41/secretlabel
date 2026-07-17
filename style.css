@@ -173,6 +173,10 @@ img {
   max-height: 0;
 }
 
+.releases-section.done {
+  transition: padding 0s;
+}
+
 .releases .card {
   color: #000;
   text-decoration: none;
