@@ -163,9 +163,11 @@
   var modalLink    = modal.querySelector(".modal-link");
   var modalBandcamp = modal.querySelector(".modal-bandcamp");
 
-  function buildEmbed(albumId) {
-    if (!albumId) return "";
-    return '<iframe style="border:0;width:400px;height:373px;" src="https://bandcamp.com/EmbeddedPlayer/album=' + albumId + '/size=large/bgcol=ffffff/linkcol=de270f/artwork=small/transparent=true/" seamless></iframe>';
+  function buildEmbed(id, type, linkcol) {
+    if (!id) return "";
+    var param = (type === "track" ? "track=" : "album=") + id;
+    var height = type === "track" ? "120px" : "373px";
+    return '<iframe style="border:0;width:100%;height:' + height + ';" src="https://bandcamp.com/EmbeddedPlayer/' + param + '/size=large/bgcol=ffffff/linkcol=' + (linkcol || "0687f5") + '/artwork=small/transparent=true/" seamless></iframe>';
   }
 
   function openModal(card) {
@@ -178,7 +180,7 @@
     modalDate.textContent    = card.dataset.date;
     modalBrief.innerHTML     = card.dataset.brief;
     modalLink.href          = bandcampUrl;
-    modalBandcamp.innerHTML = buildEmbed(card.dataset.embed);
+    modalBandcamp.innerHTML = buildEmbed(card.dataset.embed, card.dataset.embedType, card.dataset.linkcol);
     modal.classList.add("open");
     document.body.style.overflow = "hidden";
   }

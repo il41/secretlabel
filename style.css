@@ -72,7 +72,7 @@ img {
 }
 
 .splash-logo.explode-out {
-  transform: scale(30);
+  transform: scale(15);
   opacity: 0;
 }
 
