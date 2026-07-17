@@ -150,4 +150,55 @@
     }, 2200);
   });
 
+  /* ── Release modal ── */
+  var modal        = document.getElementById("modal");
+  var modalBackdrop = modal.querySelector(".modal-backdrop");
+  var modalClose   = modal.querySelector(".modal-close");
+  var modalImg     = modal.querySelector(".modal-img");
+  var modalCatalog = modal.querySelector(".modal-catalog");
+  var modalTitle   = modal.querySelector(".modal-title");
+  var modalArtist  = modal.querySelector(".modal-artist");
+  var modalDate    = modal.querySelector(".modal-date");
+  var modalBrief   = modal.querySelector(".modal-brief");
+  var modalLink    = modal.querySelector(".modal-link");
+  var modalBandcamp = modal.querySelector(".modal-bandcamp");
+
+  function buildEmbed(albumId) {
+    if (!albumId) return "";
+    return '<iframe style="border:0;width:400px;height:373px;" src="https://bandcamp.com/EmbeddedPlayer/album=' + albumId + '/size=large/bgcol=ffffff/linkcol=de270f/artwork=small/transparent=true/" seamless></iframe>';
+  }
+
+  function openModal(card) {
+    var bandcampUrl = card.dataset.bandcamp;
+    modalImg.src         = card.dataset.img;
+    modalImg.alt         = card.dataset.alt;
+    modalCatalog.textContent = card.dataset.catalog;
+    modalTitle.textContent   = card.dataset.title;
+    modalArtist.textContent  = card.dataset.artist;
+    modalDate.textContent    = card.dataset.date;
+    modalBrief.innerHTML     = card.dataset.brief;
+    modalLink.href          = bandcampUrl;
+    modalBandcamp.innerHTML = buildEmbed(card.dataset.embed);
+    modal.classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeModal() {
+    modal.classList.remove("open");
+    document.body.style.overflow = "";
+  }
+
+  var cards = document.querySelectorAll(".card[data-bandcamp]");
+  for (var c = 0; c < cards.length; c++) {
+    cards[c].addEventListener("click", function () {
+      openModal(this);
+    });
+  }
+
+  modalClose.addEventListener("click", closeModal);
+  modalBackdrop.addEventListener("click", closeModal);
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") closeModal();
+  });
+
 })();

@@ -46,17 +46,10 @@
     <section class="releases-section closed">
 
       <div class="releases">
-        <a href="https://drinksmenu.bandcamp.com/album/secret-disc" target="_blank" class="card">
-          <img src="sl000.jpg" alt="•SECRET DISC• cover art">
-          <div class="card-text">
-            <span class="card-catalog">SL000</span>
-            <span class="card-title">•SECRET DISC•</span>
-            <span class="card-artist">DRINKS MENU</span>
-            <span class="card-date">Released August 4, 2025</span>
-          </div>
-        </a>
 
-        <a href="https://11ai.bandcamp.com/" target="_blank" class="card">
+        <div class="card" data-bandcamp="https://11ai.bandcamp.com/" data-img="sl001-lighter.jpg" data-alt="color coordinates cover art" data-catalog="SL001" data-title="Leapyear Register" data-artist="11ai" data-date="Releasing June 30, 2026" data-brief="Leapyear Register, 11ai's first self-released album in four years, pays homage to the adventurous spirit of 1990s and early-2000s electronica through eleven tracks inspired by house, IDM, ambient, drum & bass, and electro-pop. Each piece draws from different electronic traditions while remaining unified by 11ai's melodic songwriting, rich harmonic language, and distinctive production style.
+        <br><br>
+       Album out on all digital platforms on July 30th. <br>First physical discs will be available at the <a href='https://instagram.com/11ai.link'>CD release party</a> at Sun Space in Los Angeles on August 15th.">
           <img src="sl001-lighter.jpg" alt="color coordinates cover art">
           <div class="card-text">
             <span class="card-catalog">SL001</span>
@@ -64,7 +57,18 @@
             <span class="card-artist">11ai</span>
             <span class="card-date">Releasing June 30, 2026</span>
           </div>
-        </a>
+        </div>
+
+        <div class="card" data-bandcamp="https://drinksmenu.bandcamp.com/album/secret-disc" data-embed="2752634160" data-img="sl000.jpg" data-alt="•SECRET DISC• cover art" data-catalog="SL000" data-title="•SECRET DISC•" data-artist="DRINKS MENU" data-date="Released August 4, 2025" data-brief="The disc(s) are real. Given out at shows to supporters only. ">
+          <img src="sl000.jpg" alt="•SECRET DISC• cover art">
+          <div class="card-text">
+            <span class="card-catalog">SL000</span>
+            <span class="card-title">•SECRET DISC•</span>
+            <span class="card-artist">DRINKS MENU</span>
+            <span class="card-date">Released August 4, 2025</span>
+          </div>
+        </div>
+
       </div>
 
     </section>
@@ -74,6 +78,26 @@
       <p>Discogs: <a href="https://www.discogs.com/label/4373509-Secret-Label" target="_blank">Secret Label</a></p>
     </footer>
 
+  </div>
+
+  <!-- Release detail modal -->
+  <div id="modal" class="modal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-panel">
+      <button class="modal-close">&times;</button>
+      <div class="modal-body">
+        <img class="modal-img" src="" alt="">
+        <div class="modal-info">
+          <span class="modal-catalog"></span>
+          <h2 class="modal-title"></h2>
+          <span class="modal-artist"></span>
+          <span class="modal-date"></span>
+        </div>
+        <div class="modal-brief"></div>
+        <a class="modal-link" href="" target="_blank">Listen on Bandcamp &rarr;</a>
+        <div class="modal-bandcamp"></div>
+      </div>
+    </div>
   </div>
 
   <script src="script.js"></script>
