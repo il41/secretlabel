@@ -146,7 +146,12 @@
 
     setTimeout(function () {
       var releases = document.querySelector(".releases-section");
-      if (releases) releases.classList.remove("closed");
+      if (releases) {
+        releases.classList.remove("closed");
+        setTimeout(function () {
+          releases.classList.add("done");
+        }, 1200);
+      }
     }, 2200);
   });
 
@@ -181,6 +186,7 @@
     modalBrief.innerHTML     = card.dataset.brief;
     modalLink.href          = bandcampUrl;
     modalBandcamp.innerHTML = buildEmbed(card.dataset.embed, card.dataset.embedType, card.dataset.linkcol);
+    modal.querySelector(".modal-panel").scrollTop = 0;
     modal.classList.add("open");
     document.body.style.overflow = "hidden";
   }
