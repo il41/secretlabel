@@ -6,9 +6,6 @@
     complexity: 3,
     intensity: 6,
     drift:     2.15,
-    rippleSpeed:  0.8,   // turbulence frequency animation speed
-    rippleScale:  18,    // max displacement in px
-    rippleDetail: 0.015, // turbulence base frequency
   };
 
   /* ── elements ── */
@@ -19,13 +16,14 @@
   var site        = document.getElementById("site");
   var exiting     = false;
 
-  /* turbulence + displacement per letter */
+  /* turbulence + displacement per letter — displacement stays at scale 0
+     (no ripple) until the opening animation ramps it up. */
   var turbS    = document.getElementById("turb-s");
   var turbL    = document.getElementById("turb-l");
   var dispS    = document.querySelector("#ripple-s feDisplacementMap");
   var dispL    = document.querySelector("#ripple-l feDisplacementMap");
-  var seedS    = 1;
-  var seedL    = 7;
+  dispS.setAttribute("scale", "0");
+  dispL.setAttribute("scale", "0");
 
   /* ── layered sine noise ── */
   function noise(t, seed) {
@@ -83,31 +81,6 @@
         "scale(" + ds.toFixed(4) + ") " +
         s.origTransform
       );
-    }
-
-    /* ripple: animate turbulence frequency per letter */
-    var rippleT = t * NOISE.rippleSpeed;
-    var freqS = NOISE.rippleDetail + Math.sin(rippleT * 1.1 + 0.3) * 0.008;
-    var freqL = NOISE.rippleDetail + Math.sin(rippleT * 0.9 + 2.1) * 0.008;
-    turbS.setAttribute("baseFrequency", freqS.toFixed(4));
-    turbL.setAttribute("baseFrequency", freqL.toFixed(4));
-
-    /* ripple: animate displacement scale per letter */
-    var scaleS = (Math.sin(rippleT * 0.7 + 1.0) * 0.5 + 0.5) * NOISE.rippleScale;
-    var scaleL = (Math.sin(rippleT * 0.6 + 3.2) * 0.5 + 0.5) * NOISE.rippleScale;
-    dispS.setAttribute("scale", scaleS.toFixed(2));
-    dispL.setAttribute("scale", scaleL.toFixed(2));
-
-    /* ripple: slowly shift turbulence seed for organic motion */
-    var newSeedS = Math.floor(t * 0.3) + 1;
-    var newSeedL = Math.floor(t * 0.25) + 7;
-    if (newSeedS !== seedS) {
-      seedS = newSeedS;
-      turbS.setAttribute("seed", seedS);
-    }
-    if (newSeedL !== seedL) {
-      seedL = newSeedL;
-      turbL.setAttribute("seed", seedL);
     }
 
     raf = requestAnimationFrame(animate);

@@ -54,6 +54,9 @@ img {
   height: 220px;
   filter: drop-shadow(0 0 30px rgba(255,255,255,0.15));
   overflow: visible;
+  /* letter spacing control — move them together/closer by nudging these */
+  --s-x: 78px;   /* horizontal center of the S  */
+  --l-x: 137px;  /* horizontal center of the L  */
 }
 
 .splash-logo path,

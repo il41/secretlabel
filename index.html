@@ -14,17 +14,21 @@
     <svg id="splash-logo" class="splash-logo" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <filter id="ripple-s">
-          <feTurbulence id="turb-s" type="fractalNoise" baseFrequency="0.02" numOctaves="3" seed="1" result="noise"/>
+          <feTurbulence id="turb-s" type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="1" result="noise"/>
           <feDisplacementMap in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G"/>
         </filter>
         <filter id="ripple-l">
-          <feTurbulence id="turb-l" type="fractalNoise" baseFrequency="0.02" numOctaves="3" seed="7" result="noise"/>
+          <feTurbulence id="turb-l" type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="7" result="noise"/>
           <feDisplacementMap in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G"/>
         </filter>
       </defs>
-      <g id="logo-nodes" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path data-noise data-letter="s" filter="url(#ripple-s)" d="M 110 55 C 110 40 100 30 85 30 C 65 30 60 45 60 55 C 60 70 70 80 85 80 C 100 80 110 90 110 105 C 110 125 95 135 75 135 C 55 135 45 120 45 110"/>
-        <path data-noise data-letter="l" filter="url(#ripple-l)" d="M 125 30 L 125 140 L 165 140"/>
+      <g id="logo-nodes" fill="#fff" stroke="#000" stroke-width="4" stroke-linejoin="miter" paint-order="stroke fill" font-family="Helvetica Neue, Arial Black, Arial, sans-serif" font-weight="900" font-size="110">
+        <g style="transform: translate(var(--s-x), 118px) scale(1.2, 0.8) translate(-77px, -118px);">
+          <text data-noise data-letter="s" filter="url(#ripple-s)" x="77" y="118" text-anchor="middle">S</text>
+        </g>
+        <g style="transform: translate(var(--l-x), 118px) scale(0.6, 1.25) translate(-140px, -118px);">
+          <text data-noise data-letter="l" filter="url(#ripple-l)" x="140" y="118" text-anchor="middle">L</text>
+        </g>
       </g>
     </svg>
     <p class="hint">click to enter</p>
@@ -47,7 +51,7 @@
 
       <div class="releases">
 
-        <div class="card" data-bandcamp="https://11ai.bandcamp.com/" data-embed="1023480794" data-embed-type="track" data-linkcol="7137dc" data-img="sl001-lighter.jpg" data-alt="color coordinates cover art" data-catalog="SL001" data-title="Leapyear Register" data-artist="11ai" data-date="Releasing June 30, 2026" data-brief="Leapyear Register, 11ai's first self-released album in four years, pays homage to the adventurous spirit of 1990s and early-2000s electronica through eleven tracks inspired by house, IDM, ambient, drum & bass, and electro-pop. Each piece draws from different electronic traditions while remaining unified by 11ai's melodic songwriting, rich harmonic language, and distinctive production style.
+        <div class="card" data-bandcamp="https://11ai.bandcamp.com/" data-embed="3077717520" data-embed-type="album" data-img="sl001-lighter.jpg" data-alt="color coordinates cover art" data-catalog="SL001" data-title="Leapyear Register" data-artist="11ai" data-date="Releasing June 30, 2026" data-brief="Leapyear Register, 11ai's first self-released album in four years, pays homage to the adventurous spirit of 1990s and early-2000s electronica through eleven tracks inspired by house, IDM, ambient, drum & bass, and electro-pop. Each piece draws from different electronic traditions while remaining unified by 11ai's melodic songwriting, rich harmonic language, and distinctive production style.
         <br><br>
         First physical discs will be available at the <a href='https://instagram.com/11ai.link'>CD release party</a> at Sun Space in Los Angeles on August 15th.
        <br><br>
@@ -57,7 +61,8 @@
             <span class="card-catalog">SL001</span>
             <span class="card-title">Leapyear Register</span>
             <span class="card-artist">11ai</span>
-            <span class="card-date">Releasing June 30, 2026</span>
+            <span class="card-date">Released Digitally June 30, 2026</span>
+            <span class="card-date">CD Available August 15, 2026</span>
           </div>
         </div>
 
