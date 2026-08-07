@@ -100,11 +100,11 @@ img {
 /* ── Site layout ── */
 
 #site {
-  position: fixed;
-  inset: 0;
+  position: relative;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  overflow-x: hidden;
 }
 
 .site .header,
@@ -117,6 +117,17 @@ img {
 .site.visible .header,
 .site.visible .info {
   opacity: 1;
+}
+
+/* center the site vertically when it fits, scroll from top when it doesn't */
+@media (min-width: 601px) {
+  .site .header {
+    margin-top: auto;
+  }
+
+  .site .info {
+    margin-bottom: auto;
+  }
 }
 
 /* ── Header ── */
@@ -162,7 +173,7 @@ img {
   clip-path: inset(0 0);
   padding: 30px;
   opacity: 1;
-  max-height: 2000px;
+  max-height: 4000px;
   /* overflow: scroll; */
   
 }
@@ -178,6 +189,7 @@ img {
 
 .releases-section.done {
   transition: padding 0s;
+  max-height: none;
 }
 
 .releases .card {
@@ -188,9 +200,9 @@ img {
 
 .releases {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 30px;
-  max-width: 900px;
+  max-width: 1600px;
   margin: 0 auto;
 }
 
@@ -201,6 +213,8 @@ img {
 .card img {
   aspect-ratio: 1.;
   object-fit: contain;
+  object-position: left;
+  
 }
 
 .card-text {
@@ -308,11 +322,40 @@ img {
   padding: 0 0 32px;
 }
 
-.modal-img {
+.modal-gallery {
+  position: relative;
+}
+
+.modal-hero {
   width: 100%;
-  /* aspect-ratio: 1; */
+  aspect-ratio: 1;
   object-fit: contain;
-  /* background: #000; */
+  background: #000;
+  transition: opacity 0.2s ease;
+}
+
+.modal-thumbs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 24px 0;
+}
+
+.modal-thumb {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border: 1px solid #333;
+  opacity: 0.45;
+  cursor: pointer;
+  transition: opacity 0.2s ease, border-color 0.2s ease;
+}
+
+.modal-thumb:hover,
+.modal-thumb.active {
+  opacity: 1;
+  border-color: #fff;
 }
 
 .modal-info {
@@ -375,10 +418,6 @@ img {
 }
 
 @media (max-width: 600px) {
-  #site {
-    position: static;
-  }
-
   .splash {
     z-index: 200;
   }

@@ -130,16 +130,9 @@
 
   /* ── Release modal ── */
   var modal        = document.getElementById("modal");
+  var modalBody    = modal.querySelector(".modal-body");
   var modalBackdrop = modal.querySelector(".modal-backdrop");
   var modalClose   = modal.querySelector(".modal-close");
-  var modalImg     = modal.querySelector(".modal-img");
-  var modalCatalog = modal.querySelector(".modal-catalog");
-  var modalTitle   = modal.querySelector(".modal-title");
-  var modalArtist  = modal.querySelector(".modal-artist");
-  var modalDate    = modal.querySelector(".modal-date");
-  var modalBrief   = modal.querySelector(".modal-brief");
-  var modalLink    = modal.querySelector(".modal-link");
-  var modalBandcamp = modal.querySelector(".modal-bandcamp");
 
   function buildEmbed(id, type, linkcol) {
     if (!id) return "";
@@ -148,17 +141,131 @@
     return '<iframe style="border:0;width:100%;height:' + height + ';" src="https://bandcamp.com/EmbeddedPlayer/' + param + '/size=large/bgcol=ffffff/linkcol=' + (linkcol || "0687f5") + '/artwork=small/transparent=true/" seamless></iframe>';
   }
 
+  /* Turn any number of <img>s into a hero image + clickable thumbnail row. */
+  function buildGallery(imgs) {
+    if (!imgs || !imgs.length) return null;
+
+    var wrap = document.createElement("div");
+    wrap.className = "modal-gallery";
+
+    var hero = imgs[0].cloneNode(false);
+    hero.className = "modal-hero";
+    wrap.appendChild(hero);
+
+    if (imgs.length > 1) {
+      var thumbs = document.createElement("div");
+      thumbs.className = "modal-thumbs";
+      imgs.forEach(function (img, i) {
+        var t = img.cloneNode(false);
+        t.className = "modal-thumb" + (i === 0 ? " active" : "");
+        t.addEventListener("click", function () {
+          hero.src = t.getAttribute("src");
+          hero.alt = t.getAttribute("alt") || "";
+          var actives = thumbs.querySelectorAll(".active");
+          for (var a = 0; a < actives.length; a++) actives[a].classList.remove("active");
+          t.classList.add("active");
+        });
+        thumbs.appendChild(t);
+      });
+      wrap.appendChild(thumbs);
+    }
+    return wrap;
+  }
+
+  /* Copy the card's catalog/title/artist/date lines into the modal header. */
+  function buildInfo(card) {
+    var text = card.querySelector(".card-text");
+    if (!text) return null;
+
+    var info = document.createElement("div");
+    info.className = "modal-info";
+
+    var catalog = text.querySelector(".card-catalog");
+    if (catalog) {
+      var c = document.createElement("span");
+      c.className = "modal-catalog";
+      c.textContent = catalog.textContent;
+      info.appendChild(c);
+    }
+
+    var title = text.querySelector(".card-title");
+    if (title) {
+      var t = document.createElement("h2");
+      t.className = "modal-title";
+      t.textContent = title.textContent;
+      info.appendChild(t);
+    }
+
+    var artist = text.querySelector(".card-artist");
+    if (artist) {
+      var a = document.createElement("span");
+      a.className = "modal-artist";
+      a.textContent = artist.textContent;
+      info.appendChild(a);
+    }
+
+    var dates = text.querySelectorAll(".card-date");
+    dates.forEach(function (d) {
+      var dd = document.createElement("span");
+      dd.className = "modal-date";
+      dd.textContent = d.textContent;
+      info.appendChild(dd);
+    });
+
+    return info;
+  }
+
+  /* Fill in the dynamic pieces of a cloned template. Every section is
+     optional — omit any of them and that part simply doesn't render. */
+  function buildModal(node, card) {
+    var anchor = null;
+
+    var imgsBox = node.querySelector(".modal-imgs");
+    if (imgsBox && imgsBox.querySelector("img")) {
+      var imgs = Array.prototype.slice.call(imgsBox.querySelectorAll("img"));
+      var gallery = buildGallery(imgs);
+      imgsBox.parentNode.replaceChild(gallery, imgsBox);
+      anchor = gallery;
+    }
+
+    var info = buildInfo(card);
+    if (info) {
+      if (anchor) {
+        anchor.parentNode.insertBefore(info, anchor.nextSibling);
+      } else {
+        node.insertBefore(info, node.firstChild);
+      }
+    }
+
+    var embedBox = node.querySelector(".modal-bandcamp");
+    if (embedBox) {
+      var embedId = embedBox.getAttribute("data-embed");
+      if (embedId) {
+        embedBox.innerHTML = buildEmbed(
+          embedId,
+          embedBox.getAttribute("data-embed-type"),
+          embedBox.getAttribute("data-linkcol")
+        );
+      } else {
+        embedBox.parentNode.removeChild(embedBox);
+      }
+    }
+  }
+
   function openModal(card) {
-    var bandcampUrl = card.dataset.bandcamp;
-    modalImg.src         = card.dataset.img;
-    modalImg.alt         = card.dataset.alt;
-    modalCatalog.textContent = card.dataset.catalog;
-    modalTitle.textContent   = card.dataset.title;
-    modalArtist.textContent  = card.dataset.artist;
-    modalDate.textContent    = card.dataset.date;
-    modalBrief.innerHTML     = card.dataset.brief;
-    modalLink.href          = bandcampUrl;
-    modalBandcamp.innerHTML = buildEmbed(card.dataset.embed, card.dataset.embedType, card.dataset.linkcol);
+    var tpl = card.querySelector(".card-modal");
+    if (!tpl) return;
+
+    modalBody.innerHTML = "";
+
+    try {
+      var node = document.importNode(tpl.content, true);
+      buildModal(node, card);
+      modalBody.appendChild(node);
+    } catch (e) {
+      console.error("modal render failed:", e);
+    }
+
     modal.querySelector(".modal-panel").scrollTop = 0;
     modal.classList.add("open");
     document.body.style.overflow = "hidden";
@@ -169,7 +276,7 @@
     document.body.style.overflow = "";
   }
 
-  var cards = document.querySelectorAll(".card[data-bandcamp]");
+  var cards = document.querySelectorAll(".card");
   for (var c = 0; c < cards.length; c++) {
     cards[c].addEventListener("click", function () {
       openModal(this);
