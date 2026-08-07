@@ -213,7 +213,7 @@ img {
 .card img {
   aspect-ratio: 1.;
   object-fit: contain;
-  object-position: left;
+  /* object-position: left; */
   
 }
 
