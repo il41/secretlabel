@@ -192,7 +192,7 @@
     if (title) {
       var t = document.createElement("h2");
       t.className = "modal-title";
-      t.textContent = title.textContent;
+      t.innerHTML = title.innerHTML;
       info.appendChild(t);
     }
 
