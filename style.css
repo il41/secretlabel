@@ -235,8 +235,8 @@ img {
 .card-dummy::after {
   content: '';
   display: block;
-  aspect-ratio: 1.15 / 1;
-  width: 100%;
+  /* aspect-ratio: 1.15 / 1; */
+  /* width: 100%; */
 }
 
 .card-img {
